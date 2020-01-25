@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ template "upday-test.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "upday-test.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "upday-test.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.internalPort }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.healthcheck.path }}
+              port: {{ .Values.service.internalPort }}
+            initialDelaySeconds: 15
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.healthcheck.path }}
+              port: {{ .Values.service.internalPort }}
+            initialDelaySeconds: 15
+          resources:
+          {{ toYaml .Values.resources | nindent 12 }}
