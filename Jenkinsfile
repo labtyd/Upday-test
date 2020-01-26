@@ -13,8 +13,7 @@ node {
         echo 'Starting to build docker image'
 
         script {
-            //docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            docker.withRegistry('https://registry.hub.docker.com') {
+            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                 buildImage = docker.build("${updayName}")
                 buildImage.push("${env.BUILD_ID}")
                 buildImage.push("latest")
