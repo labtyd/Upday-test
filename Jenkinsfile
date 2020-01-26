@@ -23,17 +23,17 @@ node {
     stage('Test') { 
         echo 'Test image'
 
-        script {
-            app.inside {
-                sh 'echo "Tests passed"'
-            }
-        }
+        //script {
+            //app.inside {
+                //sh 'echo "Tests passed"'
+            //}
+        //}
     }
     stage('Deploy') { 
         echo 'Deploy image to kubernetes'
 
         script {
-            withCredentials([file(credentialsId: 'kube-context', variable: 'kube-context')]) {
+            withCredentials([file(credentialsId: 'kubernetes', variable: 'kubernetes-admin@kubernetes')]) {
                 docker.image("${helmImage}") {
                     sh "helm upgrade --install --debug --set image.repository=${updayName} ${helmRelease} ${helmChart} --kube-context ${kube-context}"
                 }
