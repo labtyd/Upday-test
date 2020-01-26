@@ -38,7 +38,7 @@ node {
                 //docker.image("${helmImage}") {
                     //sh "helm upgrade --install --debug --set image.repository=${updayName} ${helmRelease} ${helmChart} --kube-context ${kube-context}"
                     sh "helm upgrade --install --debug ${helmRelease} ${helmChart}"
-                }
+                //}
             }
         }
     }
