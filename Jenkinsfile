@@ -35,7 +35,8 @@ node {
         echo 'Deploy image to kubernetes'
 
         script {
-            withCredentials([file(credentialsId: 'myconfig', variable: 'kubernetes-admin@kubernetes')]) {
+            //withCredentials([file(credentialsId: 'myconfig', variable: 'kubernetes-admin@kubernetes')]) {
+            withCredentials([file(credentialsId: 'myconfig')]) {
                 //docker.image("${helmImage}").withRun() {
                 //docker.image("${helmImage}") {
                     //sh "helm upgrade --install --debug --set image.repository=${updayName} ${helmRelease} ${helmChart} --kube-context ${kube-context}"
