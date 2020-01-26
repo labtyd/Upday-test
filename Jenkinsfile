@@ -35,8 +35,8 @@ node {
         script {
             withCredentials([file(credentialsId: 'myconfig', variable: 'kubernetes-admin@kubernetes')]) {
                 docker.image("${helmImage}").withRun() {
-                    sh "kubectl config get-contexts"
-                    sh "helm upgrade --install --debug --set image.repository=${updayName} ${helmRelease} ${helmChart} --kube-context ${kube-context}"
+                    //sh "helm upgrade --install --debug --set image.repository=${updayName} ${helmRelease} ${helmChart} --kube-context ${kube-context}"
+                    sh "helm upgrade --install --debug ${helmRelease} ${helmChart}"
                 }
             }
         }
