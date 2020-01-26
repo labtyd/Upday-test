@@ -41,7 +41,7 @@ node {
                 //docker.image("${helmImage}").withRun() {
                 //docker.image("${helmImage}") {
                     //sh "helm upgrade --install --debug --set image.repository=${updayName} ${helmRelease} ${helmChart} --kube-context ${kube-context}"
-                    sh "helm upgrade --install --debug --set image.repository=${updayName} ${helmRelease} ${helmChart} --kube-context myconfig"
+                    sh "helm upgrade --install --debug --set image.repository=${updayName} ${helmRelease} ${helmChart} --kube-context ${kube-context}"
                 //}
             }
         }
