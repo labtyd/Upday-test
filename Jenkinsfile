@@ -6,7 +6,7 @@ node {
     def helmChart = "helm/upday-test"
     def helmRelease = "upday-test"
     
-    def kube-context = "kubernetes-admin@kubernetes"
+    def kube-context = 'kubernetes-admin@kubernetes'
 
     stage('Clone repository') {
         checkout scm
